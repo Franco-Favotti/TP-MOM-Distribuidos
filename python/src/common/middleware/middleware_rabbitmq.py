@@ -76,6 +76,8 @@ class MessageMiddlewareQueueRabbitMQ(MessageMiddlewareQueue):
             pika.exceptions.ConnectionClosed,
         ) as e:
             raise MessageMiddlewareDisconnectedError(str(e)) from e
+        except Exception as e:
+            raise MessageMiddlewareCloseError(str(e)) from e
 
     def send(self, message):
 
@@ -177,6 +179,8 @@ class MessageMiddlewareExchangeRabbitMQ(MessageMiddlewareExchange):
             pika.exceptions.ConnectionClosed,
         ) as e:
             raise MessageMiddlewareDisconnectedError(str(e)) from e
+        except Exception as e:
+            raise MessageMiddlewareCloseError(str(e)) from e
     
     def send(self, message):
 
